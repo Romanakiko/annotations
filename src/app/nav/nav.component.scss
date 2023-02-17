@@ -1,0 +1,26 @@
+:host {
+  width: max-content;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  right: 0;
+  background: #2a2ac2;
+  opacity: 0.8;
+  color: white;
+
+  .icon {
+    width: 100%;
+    height: fit-content;
+    font-size: 50px;
+
+    &:hover {
+      cursor: pointer;
+      text-shadow: 0 0 5px white;
+    }
+  }
+}

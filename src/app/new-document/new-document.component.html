@@ -1,0 +1,38 @@
+<div class="add-file-box">
+  <input type="file" class="add-file-box__input" multiple="true"
+         (change)="onFileSelected($event)" #fileUpload>
+
+  <label class="add-file-box-upload__text">Click to upload files to document</label>
+  <button color="primary" class="add-file-box-upload_btn"
+          (click)="fileUpload.click()">
+    <mat-icon class="add-file-box-upload_btn__icon">add_box</mat-icon>
+  </button>
+</div>
+
+<div class="doc-properties" *ngIf="files.length">
+<button class="doc-properties_btn" (click)="deleteAll()">
+  <mat-icon class="doc-properties_btn__icon">close</mat-icon>
+</button>
+
+  <form class="doc-properties-form">
+    <mat-form-field class="doc-properties-form_field">
+      <mat-label class="doc-properties-form_field__label">Document name</mat-label>
+      <input type="email" matInput [formControl]="documentNameControl" placeholder="Ex. doc_name"
+             class="doc-properties-form_field__input">
+      <mat-error *ngIf="documentNameControl.hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+  <span>Content:</span>
+  <ol>
+    <li *ngFor="let file of files" >
+      <span>{{file.name}}</span>
+    </li>
+  </ol>
+
+  <button class="doc-properties_btn" (click)="saveDoc()" [disabled]="documentNameControl.invalid">
+    <mat-icon class="doc-properties_btn__icon">done</mat-icon>
+  </button>
+</div>
