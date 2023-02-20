@@ -54,7 +54,11 @@ export class DocInfoService {
     }))
   }
 
-  getDoc(docId: string): DocInfo | undefined {
+  getDoc(docId: string | null): DocInfo | undefined {
+    if(!docId) {
+      console.error('No id sent to DocInfo service!')
+      return <DocInfo>{}
+    }
     return this.documents.get(docId);
   }
 

@@ -18,6 +18,10 @@ const routes: Routes = [
     component: DocumentListComponent
   },
   {
+    path: 'document-view/:id',
+    loadChildren: () => import('./document-view/document-view.module').then(m => m.DocumentViewModule)
+  },
+  {
     path: '**',
     redirectTo: 'new-document'
   }

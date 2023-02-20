@@ -1,5 +1,5 @@
 <ol class="doc-list">
-  <li class="doc-list-item" *ngFor="let doc of docList" (click)="openDocument(doc.id)">
+  <li class="doc-list-item" *ngFor="let doc of docList" [routerLink]="['/document-view', doc.id]">
     <span>{{doc.name}}</span>
   </li>
 </ol>

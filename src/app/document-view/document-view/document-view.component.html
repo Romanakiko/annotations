@@ -1,0 +1,19 @@
+
+<div class="image">
+  <div class="image-controls">
+    <h4>{{currentPage}}/{{files.length}}</h4>
+  </div>
+  <div class="image-container">
+    <button [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1" class="image-container_arrows">
+      <mat-icon class="image-container_arrows__icon">arrow_back_ios</mat-icon>
+    </button>
+
+    <div>
+      <img [src]="files[currentPage - 1].base64" class="image-container__view">
+    </div>
+
+    <button [disabled]="currentPage === files.length" (click)="currentPage = currentPage + 1" class="image-container_arrows">
+      <mat-icon class="image-container_arrows__icon">arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+</div>
