@@ -1,7 +1,16 @@
-export interface DocInfo {
+export interface DocInfoShort {
+  id: string,
+  name: string
+}
+
+export interface DocInfo extends DocInfoShort{
+  content: Map <string, DocFile>
+}
+
+export interface StoredDocInfo{
   id: string,
   name: string,
-  content: Map <string, DocFile>
+  content: DocFile[]
 }
 
 export interface DocFile {

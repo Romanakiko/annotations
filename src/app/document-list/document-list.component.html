@@ -1,5 +1,5 @@
 <ol class="doc-list">
-  <li class="doc-list-item">
-    lalal
+  <li class="doc-list-item" *ngFor="let doc of docList" (click)="openDocument(doc.id)">
+    <span>{{doc.name}}</span>
   </li>
 </ol>

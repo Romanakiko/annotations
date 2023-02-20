@@ -18,7 +18,7 @@
     <mat-form-field class="doc-properties-form_field">
       <mat-label class="doc-properties-form_field__label">Document name</mat-label>
       <input type="email" matInput [formControl]="documentNameControl" placeholder="Ex. doc_name"
-             class="doc-properties-form_field__input">
+             class="doc-properties-form_field__input" (submit)="saveDoc()">
       <mat-error *ngIf="documentNameControl.hasError('required')">
         Name is <strong>required</strong>
       </mat-error>
@@ -35,4 +35,8 @@
   <button class="doc-properties_btn" (click)="saveDoc()" [disabled]="documentNameControl.invalid">
     <mat-icon class="doc-properties_btn__icon">done</mat-icon>
   </button>
+</div>
+
+<div class="success-snackbar" *ngIf="showAddedSnack">
+  <h2>Document {{documentNameControl.value}} added!</h2>
 </div>

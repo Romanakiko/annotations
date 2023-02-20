@@ -10,6 +10,7 @@ import {DocInfoService} from "../../doc-info/doc-info.service";
 export class NewDocumentComponent {
   files: File[] = [];
   documentNameControl = new FormControl('', [Validators.required]);
+  showAddedSnack = false
 
   constructor(private docInfo: DocInfoService) {}
 
@@ -27,18 +28,14 @@ export class NewDocumentComponent {
   }
 
   saveDoc(): void {
-    // this.files.forEach(file => {
-    //   var reader = new FileReader();
-    //   reader.readAsDataURL(file);
-    //   reader.onload = function () {
-    //     console.log(reader.result);
-    //   };
-    //   reader.onerror = function (error) {
-    //     console.log('Error: ', error);
-    //   };
-    // })
     if(this.documentNameControl.valid) {
       this.docInfo.newDocument(this.documentNameControl.value!, this.files);
     }
+    this.files = [];
+    this.showAddedSnack = true;
+    setTimeout(() => {
+      this.showAddedSnack = false;
+      this.documentNameControl.reset();
+    }, 2000);
   }
 }
