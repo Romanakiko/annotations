@@ -4,15 +4,17 @@
     <h4>{{currentPage}}/{{files.length}}</h4>
   </div>
   <div class="image-container">
-    <button [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1" class="image-container_arrows">
+    <button [disabled]="currentPage === 1" (click)="scrollTo(-1)" class="image-container_arrows">
       <mat-icon class="image-container_arrows__icon">arrow_back_ios</mat-icon>
     </button>
 
-    <div>
-      <img [src]="files[currentPage - 1].base64" class="image-container__view">
+    <div class="image-container_pages">
+      <div *ngFor="let file of files">
+        <img  [src]="file.base64" [attr.id]="file.id" class="image-container_pages__view">
+      </div>
     </div>
 
-    <button [disabled]="currentPage === files.length" (click)="currentPage = currentPage + 1" class="image-container_arrows">
+    <button [disabled]="currentPage === files.length" (click)="scrollTo(1)" class="image-container_arrows">
       <mat-icon class="image-container_arrows__icon">arrow_forward_ios</mat-icon>
     </button>
   </div>

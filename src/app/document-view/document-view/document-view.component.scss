@@ -6,7 +6,8 @@
 
   .image {
     max-width: 55%;
-    height: max-content;
+    height: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
 
@@ -21,6 +22,10 @@
       height: 40px;
       width: 100%;
       border-bottom: 2px solid #2a2ac2;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 3;
     }
 
     &-container {
@@ -43,8 +48,15 @@
         }
       }
 
-      &__view {
-        position: inherit;
+      &_pages {
+        overflow-y: scroll;
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
   }

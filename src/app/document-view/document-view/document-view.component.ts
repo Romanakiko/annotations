@@ -40,6 +40,15 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
     return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(this.document.content.get(fileId)!.file));
   }
 
+  scrollTo(direction: number) {
+    if(direction > 0) {
+      this.currentPage++;
+    }
+    else this.currentPage--;
+    let el = document.getElementById(this.files[this.currentPage - 1].id)
+    el?.scrollIntoView({behavior: "smooth", block: "start", inline: "center"});
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
