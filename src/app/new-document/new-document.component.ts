@@ -19,7 +19,6 @@ export class NewDocumentComponent {
       for(let i = 0; i < event.target.files.length; i++) {
         this.files.push(event.target.files.item(i))
       }
-      console.log(this.files)
     }
   }
 

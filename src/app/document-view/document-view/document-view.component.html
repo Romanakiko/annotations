@@ -9,8 +9,16 @@
     </button>
 
     <div class="image-container_pages">
-      <div *ngFor="let file of files">
-        <img  [src]="file.base64" [attr.id]="file.id" class="image-container_pages__view">
+      <div *ngFor="let file of files" class="image-container_pages_view">
+        <img  [src]="file.base64"
+              [attr.id]="file.id"
+              (dblclick)="test($event)"
+              class="image-container_pages_view__img">
+        <div class="image-container_pages_view_controls">
+          <mat-icon class="image-container_pages_view_controls__icon" (click)="zoomTo(1, file.id)">zoom_in</mat-icon>
+          <mat-icon class="image-container_pages_view_controls__icon" (click)="zoomTo(0, file.id)">crop_free</mat-icon>
+          <mat-icon class="image-container_pages_view_controls__icon" (click)="zoomTo(-1, file.id)">zoom_out</mat-icon>
+        </div>
       </div>
     </div>
 
@@ -19,3 +27,5 @@
     </button>
   </div>
 </div>
+
+<mat-icon (click)="delete()" style="color: red; font-size: 40px; margin: 30px">delete_forever</mat-icon>

@@ -53,9 +53,44 @@
         display: flex;
         height: 100vh;
         flex-direction: column;
+        position: relative;
+
+        &_view {
+          display: contents;
+
+          &__img {
+            position: relative;
+          }
+          &_controls {
+            position: relative;
+            bottom: 40px;
+            left: 40px;
+            display: none;
+            flex-direction: row;
+
+
+            &__icon {
+              color: #2a2ac2;
+              font-size: 40px;
+              z-index: 10;
+              width: auto;
+              height: auto;
+
+              &:hover {
+                cursor: pointer;
+                text-shadow: 2px 2px 2px #2a2ac2;
+              }
+            }
+          }
+        }
 
         &::-webkit-scrollbar {
           display: none;
+        }
+        &:hover {
+          .image-container_pages_view_controls {
+            display: flex;
+          }
         }
       }
     }

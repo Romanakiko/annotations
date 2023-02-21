@@ -10,7 +10,9 @@ export class LocalstorageService {
 
   getDocuments(): Map<string, DocInfo> {
     let documentArr = JSON.parse(localStorage.getItem('documents') as string) as StoredDocInfo[];
-
+    if(!documentArr.length) {
+      return new Map<string, DocInfo>();
+    }
     let docs = new Map<string, DocInfo>(documentArr.map(doc => [
       doc.id,
        {
