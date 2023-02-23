@@ -6,6 +6,7 @@ import {DocFile, DocInfo} from "../../../doc-info/doc-info";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {AnnotationService} from "../annotation/annotation.service";
 import {Annotation} from "../annotation/annotation";
+import {CdkDragEnd} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-document-view',
@@ -24,8 +25,8 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
   document: DocInfo | undefined = <DocInfo>{};
   files: DocFile[] = [];
   currentPage = 1;
-  currentAnnotation = '';
-  delta_y = 0;
+  currentAnnotationId?: string;
+  // delta_y = 0;
 
   ngOnInit() {
     this.subscriptions.push(
@@ -66,30 +67,30 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
     }
   }
 
-  clearPos(obj_event: any, annotationId: string) {
-    this.annotationService.grab(annotationId, false);
-  }
-  savePos(obj_event: any, annotationId: string) {
-    this.annotationService.grab(annotationId, true);
-    if (obj_event) {
-      this.annotationService.updateOptions({positionDocument:{x: 0, y: obj_event.pageY}}, annotationId);
-    }
-    let el = (obj_event.target || obj_event.srcElement);
-    this.delta_y = el.offsetTop;
-  }
-  moveSize(obj_event: any, annotationId: string) {
-    let y = 0;
-    if (this.annotationService.getAnnotationById(annotationId).downed) {
-      if (obj_event) {
-        y = obj_event.pageY
-        this.annotationService.updateOptions({positionDocument:{x: 0, y: y}}, annotationId);
-      }
-      var new_y = this.delta_y + y;
-      let el = (obj_event.target || obj_event.srcElement);
-      this.annotationService.updateOptions({size: {height: new_y, width: 0}}, annotationId);
-      el.style.height = new_y + "px";
-    }
-  }
+  // clearPos(obj_event: any, annotationId: string) {
+  //   this.annotationService.grab(annotationId, false);
+  // }
+  // savePos(obj_event: any, annotationId: string) {
+  //   this.annotationService.grab(annotationId, true);
+  //   if (obj_event) {
+  //     this.annotationService.updateOptions({positionDocument:{x: 0, y: obj_event.pageY}}, annotationId);
+  //   }
+  //   let el = (obj_event.target || obj_event.srcElement);
+  //   this.delta_y = el.offsetTop;
+  // }
+  // moveSize(obj_event: any, annotationId: string) {
+  //   let y = 0;
+  //   if (this.annotationService.getAnnotationById(annotationId).downed) {
+  //     if (obj_event) {
+  //       y = obj_event.pageY
+  //       this.annotationService.updateOptions({positionDocument:{x: 0, y: y}}, annotationId);
+  //     }
+  //     var new_y = this.delta_y + y;
+  //     let el = (obj_event.target || obj_event.srcElement);
+  //     this.annotationService.updateOptions({size: {height: new_y, width: 0}}, annotationId);
+  //     el.style.height = new_y + "px";
+  //   }
+  // }
 
   createAnnotation(event: any, fileId: string): void {
     let rect = event.target.getBoundingClientRect();
@@ -103,8 +104,17 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
     // console.log('doc= ',this.xPos, this.yPos)
   }
 
+  savePosition(event: CdkDragEnd, annotationId: string) {
+    this.annotationService.updateOptions({position: event.dropPoint}, annotationId);
+  }
+
   openAnnotation(annotationId: string) {
-    this.currentAnnotation = annotationId;
+    if(this.currentAnnotationId === annotationId) {
+      this.currentAnnotationId = undefined;
+    }
+    else {
+      this.currentAnnotationId = annotationId;
+    }
   }
 
   getAnnotations(fileId: string): Annotation[] {
@@ -113,6 +123,7 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
 
   deleteAnnotation(annotationId: string, fileId: string) {
     this.annotationService.deleteAnnotation(annotationId, fileId);
+    this.currentAnnotationId = undefined;
   }
 
   delete() {

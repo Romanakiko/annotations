@@ -20,14 +20,13 @@
              [cdkDragFreeDragPosition]="annotation.position"
              [attr.id]="annotation.id"
              [style.background-color]="annotation.color"
-             (click)="openAnnotation(annotation.id)"
-             (touchstart)="savePos($event, annotation.id)"
-             (touchend)="clearPos($event, annotation.id)"
-             (touchmove)="moveSize($event, annotation.id)">
-          <mat-icon *ngIf="currentAnnotation === annotation.id" class="image-container_pages_view--annotations__drag" cdkDragHandle>drag_indicator</mat-icon>
-          <mat-icon *ngIf="currentAnnotation === annotation.id" (click)="deleteAnnotation(annotation.id, file.id)" class="image-container_pages_view--annotations__delete">close</mat-icon>
-          Test
-        </div>
+             [style.opacity]="annotation.opacity"
+             [style.width]="annotation.size.width + 'px'"
+             [style.height]="annotation.size.height + 'px'" (cdkDragEnded)="savePosition($event, annotation.id)"
+             (click)="openAnnotation(annotation.id)">
+          <mat-icon *ngIf="currentAnnotationId && currentAnnotationId === annotation.id" class="image-container_pages_view--annotations__drag" cdkDragHandle>drag_indicator</mat-icon>
+          <mat-icon *ngIf="currentAnnotationId && currentAnnotationId === annotation.id" (click)="deleteAnnotation(annotation.id, file.id)" class="image-container_pages_view--annotations__delete">close</mat-icon>
+         </div>
         <div class="image-container_pages_view_controls">
           <mat-icon class="image-container_pages_view_controls__icon" (click)="zoomTo(1, file.id)">zoom_in</mat-icon>
           <mat-icon class="image-container_pages_view_controls__icon" (click)="zoomTo(0, file.id)">crop_free</mat-icon>
@@ -42,4 +41,12 @@
   </div>
 </div>
 
-<mat-icon (click)="delete()" routerLink="/document-list" style="color: red; font-size: 40px; margin: 30px; width: auto; height: auto;">delete_forever</mat-icon>
+<div class="options">
+  <div class="options_delete" (click)="delete()" routerLink="/document-list">
+    <mat-icon class="options_delete__icon">delete_forever</mat-icon>
+    <h5 class="options_delete__text">Delete document</h5>
+  </div>
+
+  <app-annotation-params *ngIf="currentAnnotationId" [annotationId]="currentAnnotationId" ></app-annotation-params>
+</div>
+

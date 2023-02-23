@@ -1,0 +1,163 @@
+:host {
+  width: 80%;
+  height: inherit;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 30px;
+
+  .option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    &-size {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      &_width__slider {
+        width: 200px;
+        margin-left: 20px;
+      }
+
+      &_height {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        left: -100px;
+        top: 70px;
+
+        &__slider {
+          width: 200px;
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    &-visuals {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+      gap: 20px;
+
+      &_colors {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+
+        &__color {
+          width: 20px;
+          height: 20px;
+
+          &-selected {
+            height: 30px;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      &_opacity {
+        width: 100%;
+
+        &__slider {
+          width: 100%;
+        }
+      }
+
+      &_image {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 10px;
+
+        &__input {
+          display: none;
+        }
+
+        &__icon {
+          border: 0;
+          background: none;
+        }
+
+        &:hover {
+          border: 1px solid #2a2ac2;
+          color: #2a2ac2;
+          cursor: pointer;
+
+          .option-visuals_image__icon {
+            color: #2a2ac2;
+          }
+        }
+
+      }
+
+      &_img {
+        position: relative;
+
+        &__view {
+          height: 200px;
+          width: auto;
+        }
+
+        &__delete {
+          font-size: 20px;
+          color: red;
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .text {
+    margin-top: 50px;
+
+    &-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &__input {
+        width: 90%;
+        height: 100px;
+        border: 0;
+      }
+    }
+  }
+
+  .save_btn {
+    background: #2a2ac2;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px 0;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+    }
+  }
+
+  .success-snackbar {
+    color: #2a2ac2;
+    font-weight: 600;
+    font-size: 20px;
+    display: inline-flex;
+    justify-content: center;
+  }
+}

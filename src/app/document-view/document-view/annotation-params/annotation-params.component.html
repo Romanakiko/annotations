@@ -1,0 +1,76 @@
+
+<div class="option">
+  <div class="option-size">
+    <mat-slider
+      class="option-size_width__slider"
+      [disabled]="false"
+      [max]="200"
+      [min]="10"
+      [step]="1"
+      [discrete]="true">
+      <input matSliderThumb [(ngModel)]="width">
+    </mat-slider>
+
+    <div class="option-size_height">
+      <mat-slider
+        class="option-size_height__slider"
+        [disabled]="false"
+        [max]="200"
+        [min]="10"
+        [step]="1"
+        [discrete]="true">
+        <input matSliderThumb [(ngModel)]="height">
+      </mat-slider>
+      <label class="example-value-label">{{width}}x{{height}}</label>
+    </div>
+
+  </div>
+
+  <div class="option-visuals">
+    <div class="option-visuals_colors">
+      <div class="option-visuals_colors__color"
+           *ngFor="let _color of colors"
+           (click)="color = _color"
+           [style.background-color]="_color"
+           [style.opacity]="opacity"
+           [ngClass]="{'option-visuals_colors__color-selected': color === _color}"></div>
+    </div>
+
+    <div class="option-visuals_opacity">
+      <mat-slider
+        class="option-visuals_opacity__slider"
+        [disabled]="false"
+        [max]="1"
+        [min]="0.1"
+        [step]="0.1"
+        [discrete]="true">
+        <input matSliderThumb [(ngModel)]="opacity">
+      </mat-slider>
+    </div>
+
+    <div class="option-visuals_image" (click)="fileUpload.click()" *ngIf="!imgSrc">
+      <input type="file" class="option-visuals_image__input"
+             (change)="onFileSelected($event)" #fileUpload>
+
+      <label class="option-visuals_image__text">Click to add image to annotation</label>
+      <mat-icon class="option-visuals_image_btn__icon">add_box</mat-icon>
+    </div>
+    <div class="option-visuals_img" *ngIf="imgSrc">
+      <img class="option-visuals_img__view" [src]="imgSrc">
+      <mat-icon class="option-visuals_img__delete" (click)="deleteImg()">close</mat-icon>
+    </div>
+  </div>
+</div>
+
+<div class="text">
+  <form class="text-form">
+        <textarea [formControl]="text" class="text-form__input" ></textarea>
+  </form>
+</div>
+
+<button (click)="saveAnnotation()" class="save_btn">Save</button>
+
+<span *ngIf="success" class="success-snackbar">
+  Annotation parameters saved!
+</span>
+

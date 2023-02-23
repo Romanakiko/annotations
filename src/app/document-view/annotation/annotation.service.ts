@@ -17,10 +17,13 @@ export class AnnotationService {
 
 
   newAnnotation(xPos: number, yPos: number, fileId: string) {
+    // console.log('Fire newAnnotation');
     let id = v4();
     let annotation = <Annotation>{
       id: id,
       position: {x: xPos, y: yPos},
+      size: {height: 50, width: 50},
+      opacity: 1,
       color: '#2a2ac2'
     }
     this.annotations.set(id, annotation);
@@ -38,24 +41,28 @@ export class AnnotationService {
   }
 
   updateOptions(options: {color?: string,
+                          opacity?:number,
                           size?: {height: number, width: number},
                           position?: {x: number, y: number},
                           positionDocument?: {x: number, y: number} },
                 annotationId: string): void {
+    // console.log('Fire updateOptions');
     let annotation = this.annotations.get(annotationId);
     if(!annotation) {
       return;
     }
     annotation.color = options.color ?? annotation.color;
-    annotation.size = options.size ?? options.size;
-    annotation.position = (options.position ?? options.position)!;
-    annotation.positionDocument = options.positionDocument ?? options.positionDocument;
+    annotation.opacity = options.opacity ?? annotation.opacity;
+    annotation.size = (options.size ?? annotation.size)!;
+    annotation.position = (options.position ?? annotation.position)!;
+    annotation.positionDocument = options.positionDocument ?? annotation.positionDocument;
     this.annotations.delete(annotationId);
     this.annotations.set(annotation.id, annotation);
     this.lss.updateAnnotations(this.annotations);
   }
 
   updateContent(content: {text?: string, image: File}, annotationId: string): void {
+    // console.log('Fire updateContent');
     let annotation = this.annotations.get(annotationId);
     if(!annotation) {
       return;
@@ -81,6 +88,7 @@ export class AnnotationService {
   }
 
   deleteAnnotation(annotationId: string, fileId: string): void {
+    // console.log('Fire deleteAnnotation');
     this.annotations.delete(annotationId);
     let ofFileList = this.accord.get(fileId);
       if(ofFileList) {
@@ -92,6 +100,7 @@ export class AnnotationService {
   }
 
   getAnnotations(fileId: string): Annotation[] {
+    // console.log('Fire getAnnotations');
     let annotationsList = this.accord.get(fileId);
     if(annotationsList) {
       return annotationsList.map(id => (this.annotations.get(id) ?? <Annotation>{}))
@@ -100,10 +109,12 @@ export class AnnotationService {
   }
 
   getAnnotationById(annotationId: string): Annotation {
+    // console.log('Fire getAnnotationById');
     return this.annotations.get(annotationId) ?? <Annotation>{};
   }
 
   grab(annotationId: string, isDowned: boolean) {
+    // console.log('Fire grab');
     let annotation = this.annotations.get(annotationId);
     if(!annotation) {
       return;
