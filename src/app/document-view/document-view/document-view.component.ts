@@ -4,6 +4,8 @@ import {DocInfoService} from "../../../doc-info/doc-info.service";
 import {Subscription} from "rxjs";
 import {DocFile, DocInfo} from "../../../doc-info/doc-info";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {AnnotationService} from "../annotation/annotation.service";
+import {Annotation} from "../annotation/annotation";
 
 @Component({
   selector: 'app-document-view',
@@ -14,6 +16,7 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
   constructor(private route: ActivatedRoute,
               private router: Router,
               private docInfo: DocInfoService,
+              private annotationService: AnnotationService,
               private sanitizer: DomSanitizer) {
   }
 
@@ -91,16 +94,20 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
     }
   }
 
-  test(event: any) {
+  createAnnotation(event: any, fileId: string): void {
     let rect = event.target.getBoundingClientRect();
     let xPos = event.pageX - rect.left;
     let yPos = event.pageY - rect.top;
-    console.log('abs= ',xPos,yPos);
-    let xMax = event.target.clientWidth;
-    let yMax = event.target.clientHeight;
-    this.xPos = Math.round(xPos * 100 / xMax);
-    this.yPos = Math.round(yPos * 100 / yMax);
-    console.log('doc= ',this.xPos, this.yPos)
+    this.annotationService.newAnnotation(xPos, yPos, fileId);
+    // let xMax = event.target.clientWidth;
+    // let yMax = event.target.clientHeight;
+    // this.xPos = Math.round(xPos * 100 / xMax);
+    // this.yPos = Math.round(yPos * 100 / yMax);
+    // console.log('doc= ',this.xPos, this.yPos)
+  }
+
+  getAnnotations(fileId: string): Annotation[] {
+    return this.annotationService.getAnnotations(fileId);
   }
 
   delete() {

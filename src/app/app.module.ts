@@ -19,12 +19,12 @@ import { DocumentListComponent } from './document-list/document-list.component';
     DocumentListComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
-    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

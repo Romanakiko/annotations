@@ -56,7 +56,7 @@ export class LocalstorageService {
   updateAnnotations(annotations: Map<string, Annotation>): void {
     let storedAnnotations = Array.from(annotations.values());
 
-    localStorage.setItem('documents', JSON.stringify(storedAnnotations));
+    localStorage.setItem('annotations', JSON.stringify(storedAnnotations));
   }
 
   updateFileToAnnotations(accord: Map<string, string[]>): void {
@@ -65,7 +65,7 @@ export class LocalstorageService {
       annotationIds: a[1]
     }));
 
-    localStorage.setItem('documents', JSON.stringify(storedAccords));
+    localStorage.setItem('accordFileToAnnotations', JSON.stringify(storedAccords));
   }
 
 }

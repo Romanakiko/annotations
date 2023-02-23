@@ -12,16 +12,17 @@
       <div *ngFor="let file of files" class="image-container_pages_view">
         <img  [src]="file.base64"
               [attr.id]="file.id"
-              (dblclick)="test($event)"
+              (dblclick)="createAnnotation($event, file.id)"
               class="image-container_pages_view__img">
-        <div *ngFor="let i of [1,2,3]"
+        <div *ngFor="let annotation of getAnnotations(file.id)"
              class="image-container_pages_view--annotations"
              cdkDrag cdkDragBoundary=".image-container_pages"
-             [attr.id]="i"
+             [cdkDragFreeDragPosition]="annotation.position"
+             [attr.id]="annotation.id"
              (touchstart)="savePos($event)"
              (touchend)="clearPos($event)"
              (touchmove)="moveSize($event)">
-          ХУЙ{{i}}
+          Test
           <mat-icon class="image-container_pages_view--annotations__drag" cdkDragHandle>drag_indicator</mat-icon>
         </div>
         <div class="image-container_pages_view_controls">

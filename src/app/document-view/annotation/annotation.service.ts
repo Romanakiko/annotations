@@ -89,7 +89,7 @@ export class AnnotationService {
       }
   }
 
-  private getAnnotations(fileId: string): Annotation[] {
+  getAnnotations(fileId: string): Annotation[] {
     let annotationsList = this.accord.get(fileId);
     if(annotationsList) {
       return annotationsList.map(id => (this.annotations.get(id) ?? <Annotation>{}))
@@ -97,7 +97,7 @@ export class AnnotationService {
     else return [];
   }
 
-  private getAnnotationById(annotationId: string): Annotation {
+  getAnnotationById(annotationId: string): Annotation {
     return this.annotations.get(annotationId) ?? <Annotation>{};
   }
 

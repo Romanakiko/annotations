@@ -3,7 +3,7 @@ import {v4} from 'uuid'
 import {DocFile, DocInfo, DocInfoShort} from "./doc-info";
 import {LocalstorageService} from "../localstorage/localstorage.service";
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'platform',
 })
 export class DocInfoService {
 
