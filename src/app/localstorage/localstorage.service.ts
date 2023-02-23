@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {DocInfo, StoredDocInfo} from "../doc-info/doc-info";
-import {Annotation, FileToAnnotations} from "../app/document-view/annotation/annotation";
+import {Annotation, FileToAnnotations} from "../document-view/annotation/annotation";
 
 @Injectable({
   providedIn: 'root'

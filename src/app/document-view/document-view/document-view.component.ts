@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {DocInfoService} from "../../../doc-info/doc-info.service";
+import {DocInfoService} from "../../doc-info/doc-info.service";
 import {Subscription} from "rxjs";
-import {DocFile, DocInfo} from "../../../doc-info/doc-info";
+import {DocFile, DocInfo} from "../../doc-info/doc-info";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {AnnotationService} from "../annotation/annotation.service";
 import {Annotation} from "../annotation/annotation";
