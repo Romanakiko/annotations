@@ -20,11 +20,11 @@ import { DocumentListComponent } from './document-list/document-list.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

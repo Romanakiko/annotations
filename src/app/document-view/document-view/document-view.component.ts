@@ -4,7 +4,6 @@ import {DocInfoService} from "../../../doc-info/doc-info.service";
 import {Subscription} from "rxjs";
 import {DocFile, DocInfo} from "../../../doc-info/doc-info";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {EventData} from "@angular/cdk/testing";
 
 @Component({
   selector: 'app-document-view',
@@ -64,36 +63,32 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
       }
       else el.style.transform = "scale(0.5)";
     }
-
   }
 
-  openZoom(event: Event, show: boolean) {
-    event.preventDefault();
-    this.showZoom = show;
-    if (show) {
-      this.positionZoom(event);
-    }
-  }
+  downed: boolean = false;
+  y: number = 0;
+  delta_y = 0;
 
-  positionZoom(event: any) {
-    let xPos = event.touches[0].pageX - event.touches[0].target.offsetLeft
-    let yPos = event.touches[0].pageY - event.touches[0].target.offsetTop;
-    let xMax = event.target.clientWidth;
-    let yMax = event.target.clientHeight;
-    this.xPos = this.validPercent(Math.round(xPos * 100 / xMax));
-    this.yPos = this.validPercent(Math.round(yPos * 100 / yMax));
+  clearPos(obj_event: any) {
+    this.downed=false;
   }
-
-  validPercent(value: number) {
-    if (value < 0) {
-      this.showZoom = false;
-      return 0;
+  savePos(obj_event: any) {
+    this.downed=true;
+    if (obj_event) {
+      this.y = obj_event.pageY;
     }
-    if (value > 100) {
-      this.showZoom = false;
-      return 100
+    let el = (obj_event.target || obj_event.srcElement);
+    this.delta_y = el.offsetTop;
+  }
+  moveSize(obj_event: any) {
+    if (this.downed) {
+      if (obj_event) {
+        this.y = obj_event.pageY;
+      }
+      var new_y = this.delta_y + this.y;
+      let el = (obj_event.target || obj_event.srcElement);
+      el.style.height = new_y + "px";
     }
-    return value;
   }
 
   test(event: any) {
