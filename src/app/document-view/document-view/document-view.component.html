@@ -9,10 +9,9 @@
     </button>
 
     <div class="image-container_pages">
-      <div *ngFor="let file of files" class="image-container_pages_view">
+      <div *ngFor="let file of files" class="image-container_pages_view" (dblclick)="createAnnotation($event, file.id)">
         <img  [src]="file.base64"
               [attr.id]="file.id"
-              (dblclick)="createAnnotation($event, file.id)"
               class="image-container_pages_view__img">
         <div *ngFor="let annotation of getAnnotations(file.id)"
              class="image-container_pages_view--annotations"
