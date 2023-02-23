@@ -3,7 +3,7 @@ import {DocInfo, StoredDocInfo} from "../doc-info/doc-info";
 import {Annotation, FileToAnnotations} from "../app/document-view/annotation/annotation";
 
 @Injectable({
-  providedIn: 'platform'
+  providedIn: 'root'
 })
 export class LocalstorageService {
 

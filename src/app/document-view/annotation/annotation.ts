@@ -8,6 +8,7 @@ export interface Annotation {
   text?: string,
   color: string,
   image?: DocFile,
+  downed?: boolean
 }
 
 export interface FileToAnnotations {

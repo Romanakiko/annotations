@@ -87,6 +87,8 @@ export class AnnotationService {
         this.accord.delete(fileId);
         this.accord.set(fileId, ofFileList.filter(i => i !== annotationId));
       }
+    this.lss.updateAnnotations(this.annotations);
+    this.lss.updateFileToAnnotations(this.accord);
   }
 
   getAnnotations(fileId: string): Annotation[] {
@@ -99,6 +101,14 @@ export class AnnotationService {
 
   getAnnotationById(annotationId: string): Annotation {
     return this.annotations.get(annotationId) ?? <Annotation>{};
+  }
+
+  grab(annotationId: string, isDowned: boolean) {
+    let annotation = this.annotations.get(annotationId);
+    if(!annotation) {
+      return;
+    }
+    annotation.downed = isDowned;
   }
 
   private updateBase64(AnnotationId: string, FileId: string, base64Content: string | ArrayBuffer | null): void {

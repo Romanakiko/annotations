@@ -9,20 +9,24 @@
     </button>
 
     <div class="image-container_pages">
-      <div *ngFor="let file of files" class="image-container_pages_view" (dblclick)="createAnnotation($event, file.id)">
+      <div *ngFor="let file of files" class="image-container_pages_view">
         <img  [src]="file.base64"
               [attr.id]="file.id"
+              (dblclick)="createAnnotation($event, file.id)"
               class="image-container_pages_view__img">
         <div *ngFor="let annotation of getAnnotations(file.id)"
              class="image-container_pages_view--annotations"
              cdkDrag cdkDragBoundary=".image-container_pages"
              [cdkDragFreeDragPosition]="annotation.position"
              [attr.id]="annotation.id"
-             (touchstart)="savePos($event)"
-             (touchend)="clearPos($event)"
-             (touchmove)="moveSize($event)">
+             [style.background-color]="annotation.color"
+             (click)="openAnnotation(annotation.id)"
+             (touchstart)="savePos($event, annotation.id)"
+             (touchend)="clearPos($event, annotation.id)"
+             (touchmove)="moveSize($event, annotation.id)">
+          <mat-icon *ngIf="currentAnnotation === annotation.id" class="image-container_pages_view--annotations__drag" cdkDragHandle>drag_indicator</mat-icon>
+          <mat-icon *ngIf="currentAnnotation === annotation.id" (click)="deleteAnnotation(annotation.id, file.id)" class="image-container_pages_view--annotations__delete">close</mat-icon>
           Test
-          <mat-icon class="image-container_pages_view--annotations__drag" cdkDragHandle>drag_indicator</mat-icon>
         </div>
         <div class="image-container_pages_view_controls">
           <mat-icon class="image-container_pages_view_controls__icon" (click)="zoomTo(1, file.id)">zoom_in</mat-icon>

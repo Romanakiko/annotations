@@ -22,12 +22,10 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
 
   subscriptions: Subscription[] = [];
   document: DocInfo | undefined = <DocInfo>{};
-  files: DocFile[] = []
+  files: DocFile[] = [];
   currentPage = 1;
-
-  showZoom = false;
-  xPos = 0;
-  yPos = 0;
+  currentAnnotation = '';
+  delta_y = 0;
 
   ngOnInit() {
     this.subscriptions.push(
@@ -68,28 +66,27 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
     }
   }
 
-  downed: boolean = false;
-  y: number = 0;
-  delta_y = 0;
-
-  clearPos(obj_event: any) {
-    this.downed=false;
+  clearPos(obj_event: any, annotationId: string) {
+    this.annotationService.grab(annotationId, false);
   }
-  savePos(obj_event: any) {
-    this.downed=true;
+  savePos(obj_event: any, annotationId: string) {
+    this.annotationService.grab(annotationId, true);
     if (obj_event) {
-      this.y = obj_event.pageY;
+      this.annotationService.updateOptions({positionDocument:{x: 0, y: obj_event.pageY}}, annotationId);
     }
     let el = (obj_event.target || obj_event.srcElement);
     this.delta_y = el.offsetTop;
   }
-  moveSize(obj_event: any) {
-    if (this.downed) {
+  moveSize(obj_event: any, annotationId: string) {
+    let y = 0;
+    if (this.annotationService.getAnnotationById(annotationId).downed) {
       if (obj_event) {
-        this.y = obj_event.pageY;
+        y = obj_event.pageY
+        this.annotationService.updateOptions({positionDocument:{x: 0, y: y}}, annotationId);
       }
-      var new_y = this.delta_y + this.y;
+      var new_y = this.delta_y + y;
       let el = (obj_event.target || obj_event.srcElement);
+      this.annotationService.updateOptions({size: {height: new_y, width: 0}}, annotationId);
       el.style.height = new_y + "px";
     }
   }
@@ -106,8 +103,16 @@ export class DocumentViewComponent implements OnInit, OnDestroy{
     // console.log('doc= ',this.xPos, this.yPos)
   }
 
+  openAnnotation(annotationId: string) {
+    this.currentAnnotation = annotationId;
+  }
+
   getAnnotations(fileId: string): Annotation[] {
     return this.annotationService.getAnnotations(fileId);
+  }
+
+  deleteAnnotation(annotationId: string, fileId: string) {
+    this.annotationService.deleteAnnotation(annotationId, fileId);
   }
 
   delete() {
