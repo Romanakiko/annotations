@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {v4} from 'uuid'
 import {Annotation} from "./annotation";
-import {LocalstorageService} from "../../localstorage/localstorage.service";
-import {DocFile} from "../../doc-info/doc-info";
+import {LocalstorageService} from "../../../localstorage/localstorage.service";
+import {DocFile} from "../../../doc-info/doc-info";
 
 @Injectable()
 export class AnnotationService {

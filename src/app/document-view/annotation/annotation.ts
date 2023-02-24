@@ -1,4 +1,4 @@
-import {DocFile} from "../../doc-info/doc-info";
+import {DocFile} from "../../../doc-info/doc-info";
 
 export interface Annotation {
   id: string,

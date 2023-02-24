@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
-import {DocInfoService} from "../doc-info/doc-info.service";
+import {DocInfoService} from "../../doc-info/doc-info.service";
 
 @Component({
   selector: 'app-new-document',

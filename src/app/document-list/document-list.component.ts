@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DocInfoService} from "../doc-info/doc-info.service";
-import {DocInfoShort} from "../doc-info/doc-info";
+import {DocInfoService} from "../../doc-info/doc-info.service";
+import {DocInfoShort} from "../../doc-info/doc-info";
 
 @Component({
   selector: 'app-document-list',
